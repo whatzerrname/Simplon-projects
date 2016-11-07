@@ -1,4 +1,5 @@
 // Je vais avoir besoin de savoir quoi ?
+//Calc de Remi
 
 
 // Toutes ces variables sont des nombres j'ai donc besoin de les associés à un tableau avec les noms 
