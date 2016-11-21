@@ -1,128 +1,143 @@
-// Je vais avoir besoin de savoir quoi ?
-//Calc de Remi
+
+<!DOCTYPE>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>On avance avec le javasript</title>
+    </head>
+    <body>
+        <div id="content_js">
+        </div>
+    </body>
+</html>
 
 
-// Toutes ces variables sont des nombres j'ai donc besoin de les associés à un tableau avec les noms 
-var name_month = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
-//je commence a dimanche car en javascript le dimanche est le premier jour de la semaine
-var name_week = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+<script>
+    // Je vais avoir besoin de savoir quoi ?
+    //Calc de Remi
 
-// Maintenant c'est là qu'on rigole avec le nombre de jours dans le mois 
-// j'ai créé une fonction pour faire le calcul mais j'aurais pu faire comme ça 
-// var nbn_jours_in_month = new Date(today.getFullYear(), today.getMonth()+1, -1).getDate()+1;
-function getNbJours(date){
-    //je créé la date du dernier jours en allant vers la veille du premier jour du mois suivant et j'affiche le numéro du jour avec getDate()+1 (getDate commence a 0 donc il faut rajouter 1 pour avoir la bonne valeur)
-    return new Date(date.getFullYear(), date.getMonth()+1, -1).getDate()+1;
-}
 
-function get_calendrier(year = -1, month = -1, day = -1){ //
-    // le jour d'aujourd'hui
-    //si aucune date n'est passé en par défaut on met la date d'aujourd'hui
-    var today;
-    if(year == -1 || month == -1 || day == -1){
-        today = new Date(); // me renvoi le jour d'aujourd'hui
-    } else {
-        today = new Date(year, month, day);
-    }
-    
-    // le mois en cours
-    var actual_month = today.getMonth();
-    // l'année en cours 
-    var actual_year = today.getFullYear();
-    // le jours d'ajourd'hui 
-    var actual_day = today.getDate();
+    // All of these vars are numbers. I need to associate these to an array with the names
+    var name_month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    //I start at Sunday because in JS Sunday is the first day of the week
+    var name_week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-    // j'ai également besoin de savoir quel jours est le premier du mois 
-    var first_day_in_month = new Date(actual_year, actual_month, "1");
-    //la j'ai la date mais je veux le numero du jour
-    var name_first_day_in_month = first_day_in_month.getDay();
-    
-    // on récupère le nombre de jours dans le mois
-    var nbn_jours_in_month = getNbJours(today);
-    
-    // j'ai toutes mes variables de travail je vais pouvoir bouclé
-    // sauf que je n'ai pas encore où je vais mettre mon calendrier
-    
-    var content_calendrier;
-    
-    // commençons par le commencement a savoir la création du tableau 
-    //le \n permet de faire un saut de ligne dans le code pour qu'il soit plus lisible mais il ne sera pas visible dans le rendu final
-    content_calendrier = "<table id='calendrier'>\n";
-    // j'ai besoin d'une ligne
-    content_calendrier += "<tr>\n";
-    
-    // la première ligne me permettra d'afficher le mois en cours
-    content_calendrier += '<th colspan="7">';
-    //si le mois actuel est janvier je dois dire au script qu'il passe à décembre et qu'il retire une année
-    if(actual_month == 0) {
-        content_calendrier += '<a href="#" onclick="javascript:get_calendrier('+(actual_year-1)+', 11, '+actual_day+')"> << </a>';
-    }else{
-        content_calendrier += '<a href="#" onclick="javascript:get_calendrier('+actual_year+', '+(actual_month-1)+', '+actual_day+')"> << </a>';
+    // I created a function to do the calculation but I could have done it this way ...
+    // var nm_days_in_month = new Date(today.getFullYear(), today.getMonth()+1, -1).getDate()+1;
+    function getNmDays(date){
+        //I created the date of the last days by going to the previous day of the first day of next month and I show the number of the day with getDate()+1 (getDate starts at 0 so I must add 1 to have the correct value)
+        return new Date(date.getFullYear(), date.getMonth()+1, -1).getDate()+1;
     }
-    
-    content_calendrier += name_month[actual_month] + " " +actual_year;
-    
-    //si le mois actuel est décembre je dois dire au script qu'il passe à janvier et qu'il ajoute une année
-    if(actual_month == 11) {
-        content_calendrier += '<a href="#" onclick="javascript:get_calendrier('+(actual_year+1)+', 0, '+actual_day+')"> >> </a>';
-    }else{
-        content_calendrier += '<a href="#" onclick="javascript:get_calendrier('+actual_year+', '+(actual_month+1)+', '+actual_day+')"> >> </a>';
-    }
-    
-    content_calendrier += "</th>\n";
-    
-    //je ferme ma ligne
-    content_calendrier += "</tr>\n";
-    
-    // je rajoute la ligne avec les jours de semaine 
-    
-     // j'ai besoin d'une ligne
-    content_calendrier += "<tr>\n";
-    
-    // Première boucle :
-    for (var jour in name_week){
-        content_calendrier += "<th class='jsemaine'>"+name_week[jour]+"</th>\n";
-    }
-    
-    //je ferme ma ligne
-    content_calendrier += "</tr>\n";
-    
-     // j'ai besoin d'une ligne
-    content_calendrier += "<tr>\n";
-    
-    //je rajoute des case vide sur la première ligne pour faire coincider le premier jour avec le bon jours de la semaine
-    for(var i = 0 ; i < name_first_day_in_month; i++){
-        //le &nbsp; n'est pas nécéssaire il s'agit juste du code html pour un espace histoire que la case ne soit pas vide
-        content_calendrier += "<td>&nbsp;</td>\n";
-    }
-        
-    
-    //a ce moment, le premier jour du mois va être util
-    // pour une variable i allant de 0 jusqu'au nombre de jours du mois plus le nombre de jours avant le premier alors je rajoute une case
-    
-    var maintenant = new Date();
-    
-    for(var i = 1; i <= nbn_jours_in_month  ; i++){
-        // il faut que je teste si le jour que j'affiche est le jour d'aujourd'hui 
-        // je dois tester le jour, le mois et l'année sinon j'aurais du rouge à chaque mois
-        if(i == maintenant.getDate() && actual_month == maintenant.getMonth() && actual_year == maintenant.getFullYear()){
-            content_calendrier += "<td class='now'>"+i+"</td>\n";
+
+    function get_calendar(year = -1, month = -1, day = -1){ //
+        // Today's DATE
+        //If no DATE is passed in, by default we put today's DATE
+        var today;
+        if(year == -1 || month == -1 || day == -1){
+            today = new Date(); // Sends me today's DATE
         } else {
-            content_calendrier += "<td>"+i+"</td>\n";   
+            today = new Date(year, month, day);
         }
-        //j'ai besoin de faire des sauts de lignes
-        //si une semaine est complète donc i+nombre de jour du mois précédent (name_first_day_in_month) est un multiple de 7 cela veux dire que la semaine est terminé et donc qu'il faut aller à la ligne
-        if((i+name_first_day_in_month)%7 == 0){
-            content_calendrier += "</tr>\n<tr>\n";
-        }
-    }
-    //je ferme ma ligne
-    content_calendrier += "</tr>\n";
-    
-    //il faut bien que j'integre mon calendrier dans mon html donc :
-    document.getElementById("content_js").innerHTML = content_calendrier;
-}
 
-//j'appel ma fonction pour afficher le calendrier
-get_calendrier()
-0
+        // Today's MONTH
+        var actual_month = today.getMonth();
+        // Today's YEAR
+        var actual_year = today.getFullYear();
+        // Today's DAY
+        var actual_day = today.getDate();
+
+        // I need to know which DAYS are the first DAYS of the MONTH
+        var first_day_in_month = new Date(actual_year, actual_month, "1");
+        //    //I have the DATE but I need the number of the DAY
+        var name_first_day_in_month = first_day_in_month.getDay();
+
+        // We take the number of DAYS in the MONTH
+        var nm_days_in_month = getNmDays(today);
+
+        // I have all of my vars I need to loop
+        // But I don't know where I will put my calendar yet..
+
+        var content_calendar;
+
+        // We will start by creating a table.
+        //The \n lets us break the line in the code to be more lisible
+        content_calendar = "<table id='calendrier'>\n";
+        // I need a line
+        content_calendar += "<tr>\n";
+
+        // The first line permets me to show the current MONTH
+        content_calendar += '<th colspan="7">';
+        //If the current month is January, I have to tell the script that December is finished and to start a new YEAR
+        if(actual_month == 0) {
+            content_calendar += '<a href="#" onclick="javascript:get_calendar('+(actual_year-1)+', 11, '+actual_day+')"> << </a>';
+        }else{
+            content_calendar += '<a href="#" onclick="javascript:get_calendar('+actual_year+', '+(actual_month-1)+', '+actual_day+')"> << </a>';
+        }
+
+        content_calendar += name_month[actual_month] + " " +actual_year;
+
+        //If the current month is December, I have to tell the script that is changes to January and to add a YEAR
+        if(actual_month == 11) {
+            content_calendar += '<a href="#" onclick="javascript:get_calendar('+(actual_year+1)+', 0, '+actual_day+')"> >> </a>';
+        }else{
+            content_calendar += '<a href="#" onclick="javascript:get_calendar('+actual_year+', '+(actual_month+1)+', '+actual_day+')"> >> </a>';
+        }
+
+        content_calendar += "</th>\n";
+
+        //I close my line
+        content_calendar += "</tr>\n";
+
+        // I add the line with the DAYS of the WEEK
+
+        // I need a line
+        content_calendar += "<tr>\n";
+
+        // First loop :
+        for (var day in name_week){
+            content_calendar += "<th class='jsemaine'>"+name_week[day]+"</th>\n";
+        }
+
+        //I close my line
+        content_calendar += "</tr>\n";
+
+        // I need a line
+        content_calendar += "<tr>\n";
+
+        //I add empty cases in the first line to coincide the first DAY with the correct DAYS of the WEEK
+        for(var i = 0 ; i < name_first_day_in_month; i++){
+            //The &nbsp; is to add a space in HTML so it is not empty..
+            content_calendar += "<td>&nbsp;</td>\n";
+        }
+
+
+        // Now, the first DAY of the MONTH will be useful
+        // for var i going from 0 up to the number of DAYS of the MONTH plus the number of DAYS before the first in which I add a case
+
+        var now = new Date();
+
+        for(var i = 1; i <= nm_days_in_month  ; i++){
+            // I must test if the DAY that I show is today's DATE
+            // I must test the DAY, MONTH and YEAR otherwise I should have had red at each MONTH
+            if(i == now.getDate() && actual_month == now.getMonth() && actual_year == now.getFullYear()){
+                content_calendar += "<td class='now'>"+i+"</td>\n";
+            } else {
+                content_calendar += "<td>"+i+"</td>\n";
+            }
+            // I need to jump lines..
+            // If a week is complete, i+nombre de jour du mois précédent (name_first_day_in_month) est un multiple de 7 cela veux dire que la semaine est terminé et donc qu'il faut aller à la ligne
+            if((i+name_first_day_in_month)%7 == 0){
+                content_calendar += "</tr>\n<tr>\n";
+            }
+        }
+        // I close my line
+        content_calendar += "</tr>\n";
+
+        // I must integrate my calendar in my HTML :
+        document.getElementById("content_js").innerHTML = content_calendar;
+    }
+
+    //I call my function to show the calendar
+    get_calendar()
+    0
+</script>
