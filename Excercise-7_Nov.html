@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>This is a form</title>
+        <script language="javascript">
+/*
+        function notEmpty () {
+            var a = document.forms["myForm"]["name_first"].value;
+            var b = document.forms["myForm"]["email-input"].value;
+            var c = document.forms["myForm"]["message-input"].value;
+                console.log(a,b,c);
+            if ((a==null|| a=="") || (b==null|| b=="") || (c==null|| c=="")) {
+                alert("Please fill out all required fields");
+                return false;
+            } else {
+                console.log("All fields were filled out");
+            }
+        }
+
+        function myFunction() {
+           var content = document.getElementById("message").value;
+
+            var first_split = content.split("&nbsp;");
+            var resource = first_split[1];
+            var totalWords = first_split[0];
+            document.write(totalWords);
+            alert(content.split(" ").length);
+        }
+
+        function goodEmail(mailtest) {
+            var reg = new RegExp('^[a-z0-9]+([_|\.|-]{1}[a-z0-9]+)*@[a-z0-9]+([_|\.|-]{1}[a-z0-9]+)*[\.]{1}[a-z]{2,6}$', 'i');
+            return(reg.test(mailtest));
+            }
+        goodEmail();
+
+            function valthisform() {
+                var checkboxs=document.getElementsByName("passion1");
+                console.log(checkboxs);
+                var okay=false;
+                for(var i=0,l=checkboxs.length;i<l;i++) {
+                    if(checkboxs[i].checked) {
+                        okay=true;
+                        break;
+                        alert("Thank you for checking a checkbox");
+                    }
+                }
+                if(okay) {
+                    alert("Thank you for checking a checkbox");
+                } else {
+                    alert("Please check a checkbox");
+                };
+*/
+
+        </script>
+    </head>
+    <body>
+        <form name="myForm" onsubmit="return notEmpty()" method="post">
+            <label>First name:<br><input type="text" placeholder="First name" minlength="3" name="name_first" id="firstname" required></label>
+            <label><br>Last name:<br><input type="text" placeholder="Last name" name="name_last" required></label>
+
+            <br>
+
+            <label>Email:<br><input type="email" placeholder="name@mail.com"  name="email-input"><br><br></label>
+
+            <label><textarea id="message" placeholder="Type your message here" rows="10" cols="30" name="message-input"></textarea></label>
+
+            <br><br>
+
+            <select name="region" required>
+                <option value="reg_1">Provence-Alpes-Côte d’Azur</option>
+                <option value="reg_2">Pays de la Loire</option>
+                <option value="reg_3">Île-de-France</option>
+                <option value="reg_4">Centre</option>
+                <option value="reg_5">Corse</option>
+                <option value="reg_6">Bretagne</option>
+                <option value="reg_7">Normandie</option>
+                <option value="reg_8">Hauts-de-France</option>
+                <option value="reg_9">Occitanie</option>
+                <option value="reg_10">Bourgogne-Franche-Comté</option>
+                <option value="reg_11">Auvergne-Rhône-Alpes</option>
+                <option value="reg_12">Nouvelle-Aquitaine</option>
+                <option value="reg_13">Grand-Est</option>
+            </select>
+
+            <br><br>
+
+            <label>Select a passion: <br><input type="checkbox" name="passion1" /> Drawing</label>
+            <label><input type="checkbox" name="passion2" /> Reading</label>
+            <label><input type="checkbox" name="passion3" /> Music</label>
+
+            <br><br>
+
+            <input type="submit" value="Submit">
+        </form>
+    </body>
+</html>
